@@ -156,6 +156,7 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         latitude = lastLoc.getLatitude();
         longitude = lastLoc.getLongitude();
 
+        //comment
         if (latitude < 30.4437 && latitude > 30.4428
                 && longitude > -84.2955 && longitude < -84.2945) {
 
