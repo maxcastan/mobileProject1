@@ -1,5 +1,7 @@
 package edu.fsu.cs.mobile.hw5.groupone;
 
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
+
+import edu.fsu.cs.mobile.hw5.groupone.HomeFragment;
+import edu.fsu.cs.mobile.hw5.groupone.LocationFragment;
+import edu.fsu.cs.mobile.hw5.groupone.R;
+import edu.fsu.cs.mobile.hw5.groupone.SocialFragment;
 
 public class NavActivity extends AppCompatActivity {
 

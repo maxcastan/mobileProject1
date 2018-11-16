@@ -6,4 +6,8 @@
     <string name="location">Location</string>
     <string name="social">Social</string>
     <string name="home">Home</string>
+    <string name="strozier_library">Strozier Library</string>
+    <string name="dirac_science_library">Dirac Science Library</string>
+    <string name="hcb_0316">HCB 0316</string>
+
 </resources>
