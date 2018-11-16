@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
 public class LocationFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final int PERMISSION_REQUEST_LOCATIONS = 3;
