@@ -9,5 +9,12 @@
     <string name="strozier_library">Strozier Library</string>
     <string name="dirac_science_library">Dirac Science Library</string>
     <string name="hcb_0316">HCB 0316</string>
+    <string name="studyStr">Study location:</string>
+    <string name="roomStr">Room number:</string>
+    <string name="subjectStr">Study subject:</string>
+    <string name="yesNoStr">Do you want others to join?</string>
+    <string name="yesStr">Yes</string>
+    <string name="noStr">No</string>
+    <string name="updateStr">UPDATE</string>
 
 </resources>

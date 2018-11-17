@@ -17,6 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +28,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +38,9 @@ import com.google.firebase.firestore.Query;
 public class HomeFragment extends Fragment {
 
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private Map<String, Object> message=new HashMap<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,7 +52,47 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_home, container, false);
         setHasOptionsMenu(true);
-        mAuth=FirebaseAuth.getInstance();
+        final FirebaseUser currentUser=FirebaseAuth.getInstance().getCurrentUser();
+        final TextView studyLocation = (TextView) v.findViewById(R.id.studyInputStr);
+        final TextView roomNum = (TextView) v.findViewById(R.id.roomInputStr);
+        final TextView studySubject = (TextView) v.findViewById(R.id.subjectInputStr);
+        final RadioButton yes=v.findViewById(R.id.yesRadioBtn);
+        final RadioButton no=v.findViewById(R.id.noRadioBtn);
+        Button update=v.findViewById(R.id.updateBtn);
+
+        studyLocation.setError(null);
+        roomNum.setError(null);
+        studySubject.setError(null);
+        yes.setError(null);
+        no.setError(null);
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(studyLocation.getText().toString().matches("")){
+                    studyLocation.setError("Enter Study location");
+                }
+                else if(studySubject.getText().toString().matches("")){
+                    studySubject.setError("Enter Study subject");
+                }
+                else{
+                    StringBuilder sb = new StringBuilder("");
+
+                    sb.append("Im studying " + studySubject.getText().toString());
+                    sb.append(" at " + studyLocation.getText().toString());
+
+                    if(yes.isChecked()){//they do want to include room #
+                        sb.append(" in room " + roomNum.getText().toString() + ".\n");
+                        sb.append("You can study with me if you want.");
+
+                    }
+                    String response = sb.toString();
+                    message.put("message", response);
+                    db.collection("Users").document(currentUser.getUid()).set(message);
+                }
+            }
+        });
+
         return v;
     }
 
