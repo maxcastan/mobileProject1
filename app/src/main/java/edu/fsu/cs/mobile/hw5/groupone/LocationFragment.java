@@ -34,8 +34,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.logging.Logger;
-
 
 public class LocationFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback{
 
@@ -46,13 +44,9 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
     private View root;
 
 
-    private GoogleMap mGoogleMap;
-    MapView mMapView;
-
     double latitude;
     double longitude;
-    private Marker marker;
-
+    ImageView img;
 
     public LocationFragment() {
         Log.i("this", "works");
@@ -69,11 +63,8 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         mLocationManager = (LocationManager) getActivity().getSystemService(
                 Context.LOCATION_SERVICE);
 
-        //this gets xml layout
-       // mMapView = (MapView) root.findViewById(R.id.mapview);
-       // mMapView.onCreate(savedInstanceState);
-
-       // mMapView.getMapAsync(this);
+        img = root.findViewById(R.id.imageView);
+        img.setImageResource(R.mipmap.nowherephoto);
 
 
 
@@ -191,9 +182,6 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         latitude = lastLoc.getLatitude();
         longitude = lastLoc.getLongitude();
 
-
-        ImageView img = (ImageView) getActivity().findViewById(R.id.imageView);
-        img.setImageResource(R.mipmap.nowherephoto);
 
         //comment
         if (latitude < 30.4437 && latitude > 30.4428

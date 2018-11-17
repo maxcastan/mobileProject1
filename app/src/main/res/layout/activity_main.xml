@@ -20,13 +20,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="272dp"
-        android:layout_height="75dp"
+        android:layout_width="314dp"
+        android:layout_height="69dp"
         android:layout_alignBottom="@+id/imageView2"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginBottom="322dp"
-        android:text="Study Mode Comencing"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="328dp"
+        android:text="Study Mode Commencing"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
