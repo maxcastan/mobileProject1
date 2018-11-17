@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 // Successfully signed in
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 user.put("Name", currentUser.getDisplayName());
-                db.collection("Users").document(currentUser.getUid()).set(user)
+                db.collection("Users").document(currentUser.getUid()).update(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

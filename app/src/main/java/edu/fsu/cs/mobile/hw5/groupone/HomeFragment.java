@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
                     }
                     String response = sb.toString();
                     message.put("message", response);
-                    db.collection("Users").document(currentUser.getUid()).set(message);
+                    db.collection("Users").document(currentUser.getUid()).update(message);
                 }
             }
         });

@@ -91,14 +91,19 @@ public class SocialFragment extends Fragment {
                                 String phoneNum=new String(doc.getString("number"));
                                 //send text message
                                 Uri uri = Uri.parse("smsto:" + phoneNum);
-                                Intent smsText = new Intent(Intent.ACTION_SENDTO, uri);
+                                final Intent smsText = new Intent(Intent.ACTION_SENDTO, uri);
 
                                 //this code below starts messaging app but right now it crashes the whole app
 
-                smsText.putExtra("sms_body", "Sorry, I'm busy right now studying at " +
-                        "Strozier");
-                startActivity(smsText);
-
+                                db.collection("Users").document(currentUser.getUid()).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                DocumentSnapshot doc=task.getResult();
+                                                smsText.putExtra("sms_body", doc.getString("message"));
+                                                startActivity(smsText);
+                                            }
+                                        });
                             }
                         });
                             }
