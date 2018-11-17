@@ -55,7 +55,8 @@ public class SocialFragment extends Fragment {
     }
 
     private void setUpRecyclerView(View v, final Context c) {
-        Query query=messsageRef.document(currentUser.getUid()).collection("Messages");
+        Query query=messsageRef.document(currentUser.getUid()).collection("Messages")
+                .orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Message> options=new FirestoreRecyclerOptions.Builder<Message>()
                 .setQuery(query, Message.class)
                 .build();

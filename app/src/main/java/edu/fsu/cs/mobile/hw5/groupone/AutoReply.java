@@ -43,6 +43,7 @@ public class AutoReply extends BroadcastReceiver {
 
                 SmsMessage[] messages =  new SmsMessage[pdus.length];
                 StringBuilder sb = new StringBuilder();
+                long smsReceiveTime=System.currentTimeMillis();
 
                 //large messages may be split into multiple messages, this manages that
                 for(int i=0; i<pdus.length; i++){
@@ -54,6 +55,7 @@ public class AutoReply extends BroadcastReceiver {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 phoneNumber.put("message", smsMessage);
                 phoneNumber.put("number", phoneNum);
+                phoneNumber.put("time", smsReceiveTime);
                 db.collection("Users").document(currentUser.getUid())
                         .collection("Messages").document(phoneNum)
                         .set(phoneNumber);
