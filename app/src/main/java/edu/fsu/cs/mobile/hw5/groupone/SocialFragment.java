@@ -2,6 +2,8 @@ package edu.fsu.cs.mobile.hw5.groupone;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -14,9 +16,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -30,6 +35,7 @@ public class SocialFragment extends Fragment {
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private CollectionReference messsageRef=db.collection("Users");
     private MessageAdapter adapter;
+    private DocumentReference numRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -76,11 +82,27 @@ public class SocialFragment extends Fragment {
         adapter.setOnItemClickListener(new MessageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                //send text message
-                Toast.makeText(getContext(), "sent message", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+                        DocumentReference docRef=documentSnapshot.getReference();
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                DocumentSnapshot doc=task.getResult();
+                                String phoneNum=new String(doc.getString("number"));
+                                //send text message
+                                Uri uri = Uri.parse("smsto:" + phoneNum);
+                                Intent smsText = new Intent(Intent.ACTION_SENDTO, uri);
+
+                                //this code below starts messaging app but right now it crashes the whole app
+
+                smsText.putExtra("sms_body", "Sorry, I'm busy right now studying at " +
+                        "Strozier");
+                startActivity(smsText);
+
+                            }
+                        });
+                            }
+                        });
+                         }
 
     @Override
     public void onStart() {
