@@ -7,11 +7,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class MessageAdapter extends FirestoreRecyclerAdapter<Message, MessageAdapter.MessageHolder> {
+    private OnItemClickListener listener;
 
     public MessageAdapter(@NonNull FirestoreRecyclerOptions<Message> options){
         super(options);
@@ -43,10 +46,25 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message, MessageAda
             super(itemView);
             title=itemView.findViewById(R.id.text_title);
             description=itemView.findViewById(R.id.text_description);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position=getAdapterPosition();
+                    if(position!=RecyclerView.NO_POSITION//protects from crash getting -1 position of a deleted item, -1 is dne
+                            && listener!=null){
+                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
+                    }
+                }
+            });
         }
 
 
     }
-
+    public interface OnItemClickListener{
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener=listener;
+    }
 
 }
