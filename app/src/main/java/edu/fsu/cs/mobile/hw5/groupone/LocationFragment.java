@@ -175,7 +175,7 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         if (latitude < 30.4437 && latitude > 30.4428
                 && longitude > -84.2955 && longitude < -84.2945) {
 
-            Toast.makeText(getActivity(), "In Strozier", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getActivity(), "In Strozier", Toast.LENGTH_LONG).show();
             place.setText("Strozier Library");
             img.setImageResource(R.mipmap.strozphoto);
             setSilent();
@@ -183,7 +183,7 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         } else if (latitude < 30.4453 && latitude > 30.4447
                 && longitude > -84.3002 && longitude < -84.2995){
 
-            Toast.makeText(getActivity(), "In Dirac", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "In Dirac", Toast.LENGTH_LONG).show();
             place.setText("Dirac Science Library");
             img.setImageResource(R.mipmap.diracphoto);
             setSilent();
@@ -191,7 +191,7 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         } else if(latitude < 30.4435 && latitude >  30.4430
                 && longitude > -84.2976 && longitude < -84.2966){
             img.setImageResource(R.mipmap.hcb);
-            Toast.makeText(getActivity(), "In Classroom", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "In Classroom", Toast.LENGTH_LONG).show();
             place.setText("HCB 0316");
             setSilent();
         }
