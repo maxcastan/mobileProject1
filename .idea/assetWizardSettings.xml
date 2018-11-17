@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="56" />
+                                                <entry key="scalingPercent" value="64" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -34,9 +34,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/phone-png-4.png" />
-                                      <entry key="foregroundLayerName" value="nophones" />
-                                      <entry key="outputName" value="nophone" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/Screen Shot 2018-11-17 at 2.55.59 PM.png" />
+                                      <entry key="foregroundLayerName" value="nowhere" />
+                                      <entry key="outputName" value="nowherephoto" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -67,7 +67,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_first_page_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_person_pin_circle_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -77,8 +77,11 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_first_page_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\maxrx" />
+                            <entry key="height" value="18" />
+                            <entry key="outputName" value="ic_person_pin_circle_black_24dp" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="$APPLICATION_HOME_DIR$/bin/C:\Users\maxrx" />
+                            <entry key="width" value="18" />
                           </map>
                         </option>
                       </PersistentState>

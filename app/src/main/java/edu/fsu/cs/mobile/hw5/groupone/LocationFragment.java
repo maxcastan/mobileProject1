@@ -14,14 +14,30 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class LocationFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
+import java.util.logging.Logger;
+
+
+public class LocationFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback{
 
     private static final int PERMISSION_REQUEST_LOCATIONS = 3;
     private TextView place;
@@ -30,19 +46,39 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
     private View root;
 
 
-    public LocationFragment() {
+    private GoogleMap mGoogleMap;
+    MapView mMapView;
 
+    double latitude;
+    double longitude;
+    private Marker marker;
+
+
+    public LocationFragment() {
+        Log.i("this", "works");
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("dis", "works");
 
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_location, container, false);
 
         mLocationManager = (LocationManager) getActivity().getSystemService(
                 Context.LOCATION_SERVICE);
+
+        //this gets xml layout
+       // mMapView = (MapView) root.findViewById(R.id.mapview);
+       // mMapView.onCreate(savedInstanceState);
+
+       // mMapView.getMapAsync(this);
+
+
+
+
+       // setUpMap();
 
         return root;
     }
@@ -139,8 +175,8 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
             requestLocationsPermission();
         }
         Location lastLoc = null;
-        double latitude;
-        double longitude;
+        //double latitude;
+        //double longitude;
         try {
             lastLoc = mLocationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         } catch (SecurityException e) {
@@ -155,12 +191,17 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         latitude = lastLoc.getLatitude();
         longitude = lastLoc.getLongitude();
 
+
+        ImageView img = (ImageView) getActivity().findViewById(R.id.imageView);
+        img.setImageResource(R.mipmap.nowherephoto);
+
         //comment
         if (latitude < 30.4437 && latitude > 30.4428
                 && longitude > -84.2955 && longitude < -84.2945) {
 
             Toast.makeText(getActivity(), "In Strozier", Toast.LENGTH_LONG).show();
             place.setText("Strozier Library");
+            img.setImageResource(R.mipmap.strozphoto);
             setSilent();
 
         } else if (latitude < 30.4453 && latitude > 30.4447
@@ -168,11 +209,12 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
 
             Toast.makeText(getActivity(), "In Dirac", Toast.LENGTH_LONG).show();
             place.setText("Dirac Science Library");
+            img.setImageResource(R.mipmap.diracphoto);
             setSilent();
 
         } else if(latitude < 30.4435 && latitude >  30.4430
                 && longitude > -84.2976 && longitude < -84.2966){
-
+            img.setImageResource(R.mipmap.hcb);
             Toast.makeText(getActivity(), "In Classroom", Toast.LENGTH_LONG).show();
             place.setText("HCB 0316");
             setSilent();
@@ -207,5 +249,10 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
             showLastKnownLocation();
         }
     };
+
+
+
+//cami adding mapview testing
+
 
 }
