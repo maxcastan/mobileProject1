@@ -22,6 +22,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class LocationFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback{
 
@@ -30,6 +39,9 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
     private LocationManager mLocationManager;
     private boolean mLocationPermissionGranted = false;
     private View root;
+    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    private FirebaseFirestore db=FirebaseFirestore.getInstance();
+    private Map<String, Object> locDatabase=new HashMap<>();
 
 
     double latitude;
@@ -179,30 +191,51 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         latitude = lastLoc.getLatitude();
         longitude = lastLoc.getLongitude();
 
+        final FirebaseUser currentUser=FirebaseAuth.getInstance().getCurrentUser();
 
         //comment
         if (latitude < 30.4437 && latitude > 30.4428
                 && longitude > -84.2955 && longitude < -84.2945) {
 
            // Toast.makeText(getActivity(), "In Strozier", Toast.LENGTH_LONG).show();
-            place.setText("Strozier Library");
-            img.setImageResource(R.mipmap.strozphoto);
-            setSilent();
+            locDatabase.put("location", "Strozier");
+            db.collection("Users").document(currentUser.getUid()).update(locDatabase)
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    place.setText("Strozier Library");
+                    img.setImageResource(R.mipmap.strozphoto);
+                    setSilent();
+                }
+            });
 
         } else if (latitude < 30.4453 && latitude > 30.4447
                 && longitude > -84.3002 && longitude < -84.2995){
 
             //Toast.makeText(getActivity(), "In Dirac", Toast.LENGTH_LONG).show();
-            place.setText("Dirac Science Library");
-            img.setImageResource(R.mipmap.diracphoto);
-            setSilent();
-
+            locDatabase.put("location", "Dirac");
+            db.collection("Users").document(currentUser.getUid()).update(locDatabase)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            place.setText("Dirac Science Library");
+                            img.setImageResource(R.mipmap.diracphoto);
+                            setSilent();
+                        }
+                    });
         } else if(latitude < 30.4435 && latitude >  30.4430
                 && longitude > -84.2976 && longitude < -84.2966){
-            img.setImageResource(R.mipmap.hcb);
-            //Toast.makeText(getActivity(), "In Classroom", Toast.LENGTH_LONG).show();
-            place.setText("HCB 0316");
-            setSilent();
+            locDatabase.put("location", "HCB");
+            db.collection("Users").document(currentUser.getUid()).update(locDatabase)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            img.setImageResource(R.mipmap.hcb);
+                            //Toast.makeText(getActivity(), "In Classroom", Toast.LENGTH_LONG).show();
+                            place.setText("HCB 0316");
+                            setSilent();
+                        }
+                    });
         }
         else {
             img.setImageResource(R.mipmap.nowherephoto);
