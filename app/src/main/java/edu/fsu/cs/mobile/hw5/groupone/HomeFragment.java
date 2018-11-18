@@ -22,9 +22,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -53,14 +56,12 @@ public class HomeFragment extends Fragment {
         View v=inflater.inflate(R.layout.fragment_home, container, false);
         setHasOptionsMenu(true);
         final FirebaseUser currentUser=FirebaseAuth.getInstance().getCurrentUser();
-        final TextView studyLocation = (TextView) v.findViewById(R.id.studyInputStr);
         final TextView roomNum = (TextView) v.findViewById(R.id.roomInputStr);
         final TextView studySubject = (TextView) v.findViewById(R.id.subjectInputStr);
         final RadioButton yes=v.findViewById(R.id.yesRadioBtn);
         final RadioButton no=v.findViewById(R.id.noRadioBtn);
         Button update=v.findViewById(R.id.updateBtn);
 
-        studyLocation.setError(null);
         roomNum.setError(null);
         studySubject.setError(null);
         yes.setError(null);
@@ -69,26 +70,31 @@ public class HomeFragment extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(studyLocation.getText().toString().matches("")){
-                    studyLocation.setError("Enter Study location");
-                }
-                else if(studySubject.getText().toString().matches("")){
+                if(studySubject.getText().toString().matches("")){
                     studySubject.setError("Enter Study subject");
                 }
                 else{
-                    StringBuilder sb = new StringBuilder("");
+                    db.collection("Users").document(currentUser.getUid())
+                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            DocumentSnapshot doc=task.getResult();
+                            StringBuilder sb = new StringBuilder("");
 
-                    sb.append("Im studying " + studySubject.getText().toString());
-                    sb.append(" at " + studyLocation.getText().toString());
+                            sb.append("Im studying " + studySubject.getText().toString());
+                            sb.append(" at " + doc.getString("location"));
 
-                    if(yes.isChecked()){//they do want to include room #
-                        sb.append(" in room " + roomNum.getText().toString() + ".\n");
-                        sb.append("You can study with me if you want.");
+                            if(yes.isChecked()){//they do want to include room #
+                                sb.append(" in room " + roomNum.getText().toString() + ".\n");
+                                sb.append("You can study with me if you want.");
 
-                    }
-                    String response = sb.toString();
-                    message.put("message", response);
-                    db.collection("Users").document(currentUser.getUid()).update(message);
+                            }
+                            String response = sb.toString();
+                            message.put("message", response);
+                            db.collection("Users").document(currentUser.getUid()).update(message);
+                        }
+                    });
+
                 }
             }
         });

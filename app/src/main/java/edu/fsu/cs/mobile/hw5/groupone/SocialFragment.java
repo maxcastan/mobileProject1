@@ -35,7 +35,6 @@ public class SocialFragment extends Fragment {
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private CollectionReference messsageRef=db.collection("Users");
     private MessageAdapter adapter;
-    private DocumentReference numRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
