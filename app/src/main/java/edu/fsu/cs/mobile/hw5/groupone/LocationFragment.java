@@ -93,6 +93,15 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         }
     }
 
+    public void setLoud(){
+        AudioManager am;
+        am= (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+        if(am.getRingerMode() == 0) {
+            am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+            Toast.makeText(getContext(), "Unsilencing the phone", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     public void requestLocationUpdates(View v) {
         if(!mLocationPermissionGranted) {
@@ -196,7 +205,9 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
             setSilent();
         }
         else {
+            img.setImageResource(R.mipmap.nowherephoto);
             place.setText("You are not in any of the places");
+            setLoud();
         }
 
     }
@@ -226,9 +237,6 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
         }
     };
 
-
-
-//cami adding mapview testing
 
 
 }
