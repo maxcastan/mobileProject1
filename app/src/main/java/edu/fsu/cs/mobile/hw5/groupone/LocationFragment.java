@@ -183,7 +183,7 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
             requestLocationsPermission();
         }
         if(lastLoc == null) {
-            place.setText("No last known location");
+            place.setText(R.string.no_location);
             requestLocationUpdates(root);
             return;
         }
@@ -203,7 +203,7 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
             .addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    place.setText("Strozier Library");
+                    place.setText(R.string.strozier_library);
                     img.setImageResource(R.mipmap.strozphoto);
                     setSilent();
                 }
@@ -218,7 +218,7 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            place.setText("Dirac Science Library");
+                            place.setText(R.string.dirac_science_library);
                             img.setImageResource(R.mipmap.diracphoto);
                             setSilent();
                         }
@@ -232,14 +232,14 @@ public class LocationFragment extends Fragment implements ActivityCompat.OnReque
                         public void onComplete(@NonNull Task<Void> task) {
                             img.setImageResource(R.mipmap.hcb);
                             //Toast.makeText(getActivity(), "In Classroom", Toast.LENGTH_LONG).show();
-                            place.setText("HCB 0316");
+                            place.setText(R.string.hcb_classroom);
                             setSilent();
                         }
                     });
         }
         else {
             img.setImageResource(R.mipmap.nowherephoto);
-            place.setText("You are not in any of the places");
+            place.setText(R.string.not_in_study_place);
             setLoud();
         }
 

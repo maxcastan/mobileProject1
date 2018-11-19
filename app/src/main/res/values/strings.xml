@@ -8,7 +8,8 @@
     <string name="home">Home</string>
     <string name="strozier_library">Strozier Library</string>
     <string name="dirac_science_library">Dirac Science Library</string>
-    <string name="hcb_0316">HCB 0316</string>
+    <string name="hcb_classroom">HCB</string>
+    <string name="not_in_study_place">You are not in any of the study places</string>
     <string name="studyStr">Study location:</string>
     <string name="roomStr">Room number:</string>
     <string name="subjectStr">Study subject:</string>
@@ -16,6 +17,7 @@
     <string name="yesStr">Yes</string>
     <string name="noStr">No</string>
     <string name="updateStr">UPDATE</string>
+    <string name="no_location">No last known location</string>
 
 
     <!--<string name="google_maps_key">AIzaSyChP726JrvhiK7EZetBBABEJ7I1L3zzAhM</string>-->
